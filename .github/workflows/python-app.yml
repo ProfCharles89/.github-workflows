@@ -1,1 +1,35 @@
+name: Python Application Workflow
+
+# Ejecutar el flujo de trabajo en ciertos eventos
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Configura el repositorio
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Configura Python en el entorno
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Usa la versión de Python que necesites
+
+    # Instala las dependencias si tienes un archivo requirements.txt
+    - name: Install dependencies
+      run: |
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # Ejecuta el script de Python
+    - name: Run Python script
+      run: python gestion_clientes.py
 
