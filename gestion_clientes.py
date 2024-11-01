@@ -3,18 +3,14 @@ import os
 # Diccionario para almacenar clientes
 clientes = {}
 
-# Función para agregar o actualizar un cliente
-def agregar_cliente():
-    nombre = input("Ingrese el nombre del cliente: ")
-    descripcion = input("Ingrese la descripción del servicio solicitado: ")
-    
+# Función para agregar un cliente nuevo
+def agregar_cliente(nombre, descripcion):
     if nombre in clientes:
-        print(f"El cliente {nombre} ya existe. Actualizando descripción...")
+        print("El cliente ya existe. Actualizando descripción...")
         clientes[nombre].append(descripcion)
     else:
-        print(f"Creando un nuevo cliente: {nombre}")
+        print("Creando un nuevo cliente...")
         clientes[nombre] = [descripcion]
-    
     guardar_cliente(nombre)
 
 # Función para guardar cliente en un archivo
@@ -25,8 +21,7 @@ def guardar_cliente(nombre):
     print(f"Información guardada en {nombre}.txt")
 
 # Función para leer la información de un cliente
-def leer_cliente():
-    nombre = input("Ingrese el nombre del cliente a consultar: ")
+def leer_cliente(nombre):
     if nombre in clientes:
         print(f"Información del cliente {nombre}:")
         for descripcion in clientes[nombre]:
@@ -35,8 +30,7 @@ def leer_cliente():
         print("Cliente no encontrado.")
 
 # Función para eliminar un cliente
-def eliminar_cliente():
-    nombre = input("Ingrese el nombre del cliente a eliminar: ")
+def eliminar_cliente(nombre):
     if nombre in clientes:
         os.remove(f"{nombre}.txt")
         del clientes[nombre]
@@ -44,29 +38,7 @@ def eliminar_cliente():
     else:
         print("Cliente no encontrado.")
 
-# Función principal para interactuar con el usuario
-def menu():
-    while True:
-        print("\n--- Menú de Gestión de Clientes ---")
-        print("1. Agregar o actualizar un cliente")
-        print("2. Consultar un cliente")
-        print("3. Eliminar un cliente")
-        print("4. Salir")
-        
-        opcion = input("Seleccione una opción (1-4): ")
-        
-        if opcion == "1":
-            agregar_cliente()
-        elif opcion == "2":
-            leer_cliente()
-        elif opcion == "3":
-            eliminar_cliente()
-        elif opcion == "4":
-            print("Saliendo del programa...")
-            break
-        else:
-            print("Opción no válida. Intente de nuevo.")
-
-# Ejecutar el menú
-if __name__ == "__main__":
-    menu()
+# Ejemplo de uso
+agregar_cliente("Empresa ABC", "Servicio de consultoría")
+leer_cliente("Empresa ABC")
+eliminar_cliente("Empresa ABC")
